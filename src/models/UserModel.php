@@ -14,4 +14,9 @@ class UserModel
         $sql = "SELECT * FROM report WHERE user_email = " . $email . " AND user_password = " . $password;
         return $this->conn->query($sql);
     }
+
+    public function getReportByEmail(string $email){
+        $sql = "SELECT * FROM report WHERE user_email = " . $email;
+        return $this->conn->query($sql);
+    }
 }
