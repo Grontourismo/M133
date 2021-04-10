@@ -10,28 +10,37 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
-    <h1>Sign In</h1>
-    <form action="../controllers/LoginController.php" method="POST">
-        <input type="email" name="email">
-        <input type="password" name="pw">
-        <input type="submit">
-    </form>
-=======
-<nav class="navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">WebSiteName</a>
+    <nav class="navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Carry</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add.html">Add Report</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="add.html">Add Report</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        </ul>
-    </div>
-</nav>
->>>>>>> 8e9a3bee76a0d239f1b4b7cb6adfb492e7273736
+    </nav>
+    <h1 style="text-align: center;">Sign In</h1>
+    <form action="../controllers/LoginController.php" method="POST">
+        <div class="field-label">
+            <label>Email</label>
+        </div>
+        <div class="field-label">
+            <input type="email" name="email" class="input-field">
+        </div>
+        <div class="field-label">
+            <label>Password</label>
+        </div>
+        <div class="field-label">
+            <input type="password" name="pw" class="input-field">
+        </div>
+        <div class="field-label">
+            <input type="submit" class="input-field">
+        </div>
+    </form>
 </body>
 </html>

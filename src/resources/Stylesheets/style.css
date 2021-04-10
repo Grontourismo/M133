@@ -1,0 +1,9 @@
+.input-field{
+    width: 50%;
+    align-items: center;
+    margin-top: 1%;
+}
+.field-label{
+    font-size: 30px;
+    text-align: center;
+}
