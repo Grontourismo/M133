@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
     <title>Sign In</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,37 +10,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Carry</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="add.html">Add Report</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
+<nav class="navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Carry</a>
         </div>
-    </nav>
-    <h1 style="text-align: center;">Sign In</h1>
-    <form action="../controllers/LoginController.php" method="GET">
-        <div class="field-label">
-            <label class="form-label field-label">Email</label>
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="add.html">Add Report</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="../views/login.html">
+                Login</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="margin">
+    <form action="../controllers/LoginController.php" method="post">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Enter email">
         </div>
-        <div>
-            <input type="email" name="email" class="form-control input-field">
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input name="pw" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <div class="field-label">
-            <label class="form-label field-label">Password</label>
-        </div>
-        <div>
-            <input type="password" name="pw" class="form-control input-field">
-        </div>
-        <div>
-            <input type="submit" class="form-control">
-        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
 </body>
 </html>

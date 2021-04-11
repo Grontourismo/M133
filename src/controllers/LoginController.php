@@ -2,24 +2,21 @@
 require_once("../models/UserModel.php");
 
 $model = new UserModel();
-$loggedin = false;
-if(isset($_GET["email"]) && isset($_GET["pw"])){
+$loginValid = false;
+if (isset($_POST["email"]) && isset($_POST["pw"])) {
+    $result = $model->getUsers();
 
-    foreach ($model->getUsers() as $user){
-        if($user[3] == $_GET['email'] && $user[4] == $_GET['pw']){
-
-            $loggedin = true;
-
-            $result = $model->getUserByLogin($_GET["email"], $_GET["pw"]);
-    
-            if ($result != []){
+    foreach ($result as $index) {
+        if ($_POST["email"] == $index["User_email"]) {
+            if ($_POST["pw"] == $index["User_password"]) {
+                $loginValid = true;
                 session_start();
                 $_SESSION["email"] = $_GET["email"];
                 header("Location: ../views/index.html");
             }
         }
     }
-    if(!$loggedin){
-        header("Location: ../views/login.html");
-    }
+}
+if (!$loginValid) {
+    header("Location: ../views/login.html");
 }

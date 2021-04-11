@@ -8,11 +8,11 @@ if (isset($_POST['submit'])) {
 	$tempname = $_FILES["uploadfile"]["tmp_name"];
 	$folder = "../report-img/".$filename;
 
+    print $_POST["title"]. $_POST["comment"]. $_POST["lat"]. $_POST["lng"]. $filename;
+
 	$model->addReportToDB($_POST["title"], $_POST["comment"], $_POST["lat"], $_POST["lng"], $filename);
 
-	if (move_uploaded_file($tempname, $folder)) {
-		$msg = "Image uploaded successfully";
-	}else{
-		$msg = "Failed to upload image";
-	}
+	move_uploaded_file($tempname, $folder);
+
+	header("Location: ../views/index.html");
 }
