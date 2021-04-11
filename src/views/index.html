@@ -58,13 +58,10 @@
                 id.innerHTML = item.Report_id;
                 let title = row.insertCell(1);
                 title.innerHTML = item.Report_Title;
-
                 let location = row.insertCell(2);
                 location.innerHTML = item.Report_Location;
-
                 let time = row.insertCell(3);
                 time.innerHTML = item.Report_Time;
-
                 let status = row.insertCell(4);
                 status.innerHTML = item.Report_Status;
             });
@@ -72,10 +69,6 @@
 
         request.send()
 
-
-        function clicked(reportId) {
-            console.log(reportId)
-        }
     </script>
 </div>
 </body>
