@@ -32,7 +32,11 @@
         </div>
         <div class="col-sm-7">
             <h2><strong id="title"></strong></h2>
-            <strong id="status"></strong>
+            <strong><select id="status" onchange="dropChanged()">
+                <option value="eingeschrieben" id="eingeschrieben"> Eingeschrieben </option>
+                <option value="begonnen" id="begonnen"> Begonnen</option>
+                <option value="beendet" id="beendet"> Beendet</option>
+            </select></strong>
             <br>
             <strong id="time"></strong>
             <br>
@@ -64,6 +68,19 @@
     </div>
 </div>
 <script>
+    function dropChanged() {
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+        id = $_GET["id"]
+        var value = document.getElementById("status").value;
+        window.location.href = "../controllers/UpdateStatusController.php?value="+value+"&id="+id;
+    }
+
+
     var parts = window.location.search.substr(1).split("&");
     var $_GET = {};
     for (var i = 0; i < parts.length; i++) {
@@ -80,11 +97,20 @@
         data.forEach(item => {
             document.getElementById("img").src = "../report-img/" + item.Report_Image
             document.getElementById("title").innerText = item.Report_Title
-            document.getElementById("status").innerText = "Status: " + item.Report_Status
             document.getElementById("time").innerText = "Creation Time: " + item.Report_Time
             document.getElementById("commentText").innerText = item.Report_Comment
             document.getElementById("button").href = "showLocation.html?location=" + item.Report_Location
             document.getElementById("id").value = item.Report_id
+
+            if (item.Report_Status === "eingeschrieben"){
+                document.getElementById("eingeschrieben").selected = "selected";
+            }
+            else if (item.Report_Status === "begonnen"){
+                document.getElementById("begonnen").selected = "selected";
+            }
+            else if (item.Report_Status === "beendet"){
+                document.getElementById("beendet").selected = "selected";
+            }
 
             var requestUser = new XMLHttpRequest()
             requestUser.open('GET', '../api/userApi.php?id=' + item.User_fk, true)

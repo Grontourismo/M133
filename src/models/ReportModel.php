@@ -23,4 +23,9 @@ class ReportModel
         $sql = "INSERT INTO reports(Report_Image, Report_Comment, Report_Title, Report_Location, Report_Status, User_fk) values ('$img', '$comment', '$title', '$lat / $lng', 'eingeschrieben', $user_fk);";
         $this->conn->query($sql);
     }
+
+    public function updateStatus(string $status, int $report_id){
+        $sql = "UPDATE reports SET Report_Status = '$status' WHERE Report_id='$report_id'";
+        $this->conn->query($sql);
+    }
 }
