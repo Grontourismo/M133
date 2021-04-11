@@ -8,21 +8,53 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+
 </head>
 <body>
-<nav class="navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">WebSiteName</a>
+    <nav class="navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add.html">Add Report</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="add.html">Add Report</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
+
+    <form method="POST" action="../controllers/AddController.php" enctype="multipart/form-data">
+        <div class="field-label">
+            <label>Report Title</label>
+            <input name="title" class="form-control input-field">
+        </div>
+        <div class="field-label">
+            <label>Report Comment</label>
+            <input name="comment" class="form-control input-field" type="text">
+        </div>
+        <div class="field-label">
+            <label>Location lat</label>
+            <input name="lat" class="form-control input-field" type="text">
+        </div>
+        <div class="field-label">
+            <label>Location lng</label>
+            <input name="lng" class="form-control input-field" type="text">
+        </div>
+        <div class="field-label">
+            <label>Report Image</label>
+            <input type="file" class="form-control" name="uploadfile" value=""/>
+        </div>
+        <div>
+            <input class="form-control input-field" type="submit" name="submit">
+        </div>
+    </form>
+
 </body>
 </html>
