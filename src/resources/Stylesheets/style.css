@@ -1,0 +1,17 @@
+.field-label{
+    font-size: 30px;
+    text-align: center;
+}
+
+.input-field{
+    text-align: center;
+}
+
+.form-label{
+    font-size: large;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
