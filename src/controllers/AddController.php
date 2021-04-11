@@ -5,35 +5,30 @@ require_once("../models/UserModel.php");
 $model = new ReportModel;
 $userModel = new UserModel();
 session_start();
-if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['comment']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['uploadfile'])) {
-
-	if(is_numeric($_POST['lat']) && is_numeric($_POST['lng'])){
-
-		if ($_POST['lat'] >= -90 && $_POST['lat'] <= 90 && $_POST['lng'] >= -180 && $_POST['lat'] <= 180){
-
-			strip_tags($_POST['title']);
-			strip_tags($_POST['comment']);
-			strip_tags($_POST['lat']);
-			strip_tags($_POST['lng']);
-			strip_tags($_POST['uploadfile']);
+if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['comment']) && isset($_POST['lat']) && isset($_POST['lng'])) {
 
 
-			$filename = $_FILES["uploadfile"]["name"];
-			$tempname = $_FILES["uploadfile"]["tmp_name"];
-			$folder = "../report-img/".$filename;
+    strip_tags($_POST['title']);
+    strip_tags($_POST['comment']);
+    strip_tags($_POST['lat']);
+    strip_tags($_POST['lng']);
+    strip_tags($_POST['uploadfile']);
 
-			$users = $userModel->getUserByEmail($_SESSION["email"]);
 
-			$user_fk = null;
-			foreach ($users as $user){
-				$user_fk = $user["User_id"];
-			}
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];
+    $folder = "../report-img/" . $filename;
 
-			$model->addReportToDB($_POST["title"], $_POST["comment"], $_POST["lat"], $_POST["lng"], $filename, $user_fk);
+    $users = $userModel->getUserByEmail($_SESSION["email"]);
 
-			move_uploaded_file($tempname, $folder);
+    $user_fk = null;
+    foreach ($users as $user) {
+        $user_fk = $user["User_id"];
+    }
 
-			header("Location: ../views/home.html");
-		}
-	}
+    $model->addReportToDB($_POST["title"], $_POST["comment"], $_POST["lat"], $_POST["lng"], $filename, $user_fk);
+
+    move_uploaded_file($tempname, $folder);
+
+    header("Location: ../views/home.html");
 }
