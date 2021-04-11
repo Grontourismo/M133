@@ -7,6 +7,13 @@ if (isset($_GET["user_email"])) {
         array_push($array, $index);
     }
     print json_encode($array);
+}
+else if (isset($_GET["id"])) {
+    $array = [];
+    foreach ($model->getUserById($_GET["id"]) as $index){
+        array_push($array, $index);
+    }
+    print json_encode($array);
 }else{
     $array = [];
     foreach ($model->getUsers() as $index){

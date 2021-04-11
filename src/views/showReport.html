@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
     <title>Show Report</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,16 +13,130 @@
 <nav class="navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">WebSiteName</a>
+            <a class="navbar-brand" href="home.html">Carry</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="add.html">Add Report</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span>
+                Logout</a></li>
         </ul>
     </div>
 </nav>
+<div class="margin">
+    <div class="row">
+        <div class="col-sm-5">
+            <img id="img" class="img img-fluid" alt="Picture">
+        </div>
+        <div class="col-sm-7">
+            <h2><strong id="title"></strong></h2>
+            <strong id="status"></strong>
+            <br>
+            <strong id="time"></strong>
+            <br>
+            <strong id="user"></strong>
+            <br>
+            <a id="button" target="_blank"><button>Standort anzeigen</button></a>
+            <br>
+            <br>
+            <p id="commentText"></p>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 3%">
+        <form action="../controllers/AddCommentController.php" method="get">
+            <div class="form-group">
+                <label>Comment</label>
+                <textarea required name="comment" style="height: 100px" class="form-control" placeholder="Comment"></textarea>
+            </div>
+            <div class="form-group">
+                <input id="id" name="report_id" class="form-control" type="hidden">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="container">
+        <hr>
+        <div id="comment">
+
+        </div>
+    </div>
+</div>
+<script>
+    var parts = window.location.search.substr(1).split("&");
+    var $_GET = {};
+    for (var i = 0; i < parts.length; i++) {
+        var temp = parts[i].split("=");
+        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+    }
+    id = $_GET["id"]
+
+    var request = new XMLHttpRequest()
+    request.open('GET', '../api/reportApi.php?id=' + id, true)
+    request.onload = function () {
+        var data = JSON.parse(request.response)
+
+        data.forEach(item => {
+            document.getElementById("img").src = "../report-img/" + item.Report_Image
+            document.getElementById("title").innerText = item.Report_Title
+            document.getElementById("status").innerText = "Status: " + item.Report_Status
+            document.getElementById("time").innerText = "Creation Time: " + item.Report_Time
+            document.getElementById("commentText").innerText = item.Report_Comment
+            document.getElementById("button").href = "showLocation.html?location=" + item.Report_Location
+            document.getElementById("id").value = item.Report_id
+
+            var requestUser = new XMLHttpRequest()
+            requestUser.open('GET', '../api/userApi.php?id=' + item.User_fk, true)
+            requestUser.onload = function () {
+                var dataUser = JSON.parse(requestUser.response)
+                dataUser.forEach(item => {
+                    document.getElementById("user").innerText = "Erstellt von: " + item.User_name + " " + item.User_lastname
+                });
+            }
+            requestUser.send()
+
+            var requestComment = new XMLHttpRequest()
+            requestComment.open('GET', '../api/commentApi.php?reportID=' + item.Report_id, true)
+            requestComment.onload = function () {
+
+                var dataComment = JSON.parse(requestComment.response)
+
+                dataComment.forEach(item => {
+
+                    var requestUser = new XMLHttpRequest()
+                    requestUser.open('GET', '../api/userApi.php?id=' + item.User_fk, true)
+                    requestUser.onload = function () {
+                        var dataUser = JSON.parse(requestUser.response)
+                        dataUser.forEach(itemUser => {
+                            var tag = document.createElement("h1");
+                            var text = document.createTextNode("Von: " + itemUser.User_name + " " + itemUser.User_lastname);
+                            tag.appendChild(text);
+                            var element = document.getElementById("comment");
+                            element.appendChild(tag);
+
+                            var tag = document.createElement("p");
+                            var text = document.createTextNode(item.Comment);
+                            tag.appendChild(text);
+                            var element = document.getElementById("comment");
+                            element.appendChild(tag);
+
+                            var tag = document.createElement("hr");
+                            var element = document.getElementById("comment");
+                            element.appendChild(tag);
+                        });
+                    }
+                    requestUser.send()
+
+                });
+            }
+            requestComment.send()
+        });
+    }
+    request.send()
+
+
+
+</script>
 </body>
 </html>

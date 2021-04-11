@@ -12,11 +12,11 @@ if (isset($_POST["email"]) && isset($_POST["pw"])) {
             if ($_POST["pw"] == $index["User_password"]) {
                 $loginValid = true;
                 $_SESSION["email"] = $_POST["email"];
-                header("Location: ../views/index.html");
+                header("Location: ../views/home.html");
             }
         }
     }
 }
 if (!$loginValid) {
-    header("Location: ../views/login.html");
+    header("Location: ../views/index.html");
 }

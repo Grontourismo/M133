@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Location</title>
+    <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            var parts = window.location.search.substr(1).split("&");
+            var $_GET = {};
+            for (var i = 0; i < parts.length; i++) {
+                var temp = parts[i].split("=");
+                $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+            }
+            var reportlocation = $_GET["location"]
+
+            var locations = reportlocation.split(" / ");
+            // The location of Uluru
+            const uluru = { lat: parseFloat(locations[0]), lng: parseFloat(locations[1]) };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+    </script>
+</head>
+<body>
+<div style="text-align: center;">
+<div id="map"></div>
+
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV2WIUkQEM4E9_Mjza0wCuRQCwf91AO80&callback=initMap&libraries=&v=weekly"
+        async
+></script>
+</div>
+</body>
+</html>

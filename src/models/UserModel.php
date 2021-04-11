@@ -19,4 +19,9 @@ class UserModel
         $sql = "SELECT * FROM users WHERE User_email='" . $email . "'";
         return $this->conn->query($sql);
     }
+
+    public function getUserById($id){
+        $sql = "SELECT * FROM users WHERE User_id='" . $id . "'";
+        return $this->conn->query($sql);
+    }
 }

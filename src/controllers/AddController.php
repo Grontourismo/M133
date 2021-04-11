@@ -22,5 +22,5 @@ if (isset($_POST['submit'])) {
 
 	move_uploaded_file($tempname, $folder);
 
-	header("Location: ../views/index.html");
+	header("Location: ../views/home.html");
 }

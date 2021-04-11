@@ -1,4 +1,4 @@
 <?php
 session_start();
 $_SESSION["email"] = "";
-header("Location: ../views/login.html");
+header("Location: ../views/index.html");

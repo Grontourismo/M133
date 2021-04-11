@@ -7,3 +7,20 @@
     margin-right: 10%;
     margin-left: 10%;
 }
+
+.img{
+    max-width: 500px;
+}
+
+#map {
+    height: 735px;
+    width: 100%;
+}
+
+#button{
+    color: black;
+}
+
+#button:hover{
+    text-decoration: none;
+}

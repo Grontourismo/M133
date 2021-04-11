@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="src/resources/Stylesheets/style.css">
     <title>Sign In</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -13,20 +13,18 @@
 <nav class="navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">Carry</a>
+            <a class="navbar-brand" href="#">Carry</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="add.html">Add Report</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../views/login.html">
+            <li><a href="../views/index.html">
                 Login</a></li>
         </ul>
     </div>
 </nav>
 <div class="margin">
-    <form action="../controllers/LoginController.php" method="post">
+    <form action="src/controllers/LoginController.php" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
             <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
