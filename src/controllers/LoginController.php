@@ -5,6 +5,8 @@ $model = new UserModel();
 $loginValid = false;
 session_start();
 if (isset($_POST["email"]) && isset($_POST["pw"])) {
+    strip_tags($_POST["email"]);
+    strip_tags($_POST["pw"]);
     $result = $model->getUsers();
 
     foreach ($result as $index) {
