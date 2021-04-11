@@ -5,6 +5,9 @@ $model = new CommentModel();
 $userModel = new UserModel();
 session_start();
 if (isset($_GET["comment"]) && isset($_GET["report_id"])){
+    strip_tags($_GET["comment"]);
+    strip_tags($_GET["report_id"]);
+
     $users = $userModel->getUserByEmail($_SESSION["email"]);
 
     $user_fk = null;
