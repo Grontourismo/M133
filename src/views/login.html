@@ -25,21 +25,21 @@
         </div>
     </nav>
     <h1 style="text-align: center;">Sign In</h1>
-    <form action="../controllers/LoginController.php" method="POST">
+    <form action="../controllers/LoginController.php" method="GET">
         <div class="field-label">
-            <label>Email</label>
+            <label class="form-label field-label">Email</label>
+        </div>
+        <div>
+            <input type="email" name="email" class="form-control input-field">
         </div>
         <div class="field-label">
-            <input type="email" name="email" class="input-field">
+            <label class="form-label field-label">Password</label>
         </div>
-        <div class="field-label">
-            <label>Password</label>
+        <div>
+            <input type="password" name="pw" class="form-control input-field">
         </div>
-        <div class="field-label">
-            <input type="password" name="pw" class="input-field">
-        </div>
-        <div class="field-label">
-            <input type="submit" class="input-field">
+        <div>
+            <input type="submit" class="form-control">
         </div>
     </form>
 </body>

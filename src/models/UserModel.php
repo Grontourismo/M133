@@ -7,16 +7,21 @@ class UserModel
 
     public function __construct()
     {
-        $this->conn = new mysqli("127.0.0.1", "root", "n0310000", "carry");
+        $this->conn = new PDO('mysql:host=localhost;dbname=carry', "root", "n0310000");
     }
 
-    public function getReportByLogin(string $email, string $password){
-        $sql = "SELECT * FROM report WHERE user_email = " . $email . " AND user_password = " . $password;
+    public function getUsers(){
+        $sql = "SELECT * FROM users;";
         return $this->conn->query($sql);
     }
 
-    public function getReportByEmail(string $email){
-        $sql = "SELECT * FROM report WHERE user_email = " . $email;
+    public function getUserByLogin(string $email, string $password){
+        $sql = "SELECT * FROM users;";// WHERE user_email = " . $email . " AND user_password = " . $password;
+        return $this->conn->query($sql);
+    }
+
+    public function getUserByEmail(string $email){
+        $sql = "SELECT * FROM users WHERE user_email = " . $email;
         return $this->conn->query($sql);
     }
 }
