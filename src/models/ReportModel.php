@@ -19,8 +19,8 @@ class ReportModel
         return $this->conn->query($sql);
     }
 
-    public function addReportToDB(string $title, string $comment, string $lat, string $lng, string $img){
-        $sql = "INSERT INTO reports(Report_Image, Report_Comment, Report_Title, Report_Location, Report_Status, User_fk) values ('$img', '$comment', '$title', '$lat / $lng', 'eingeschrieben', 2);";
+    public function addReportToDB(string $title, string $comment, string $lat, string $lng, string $img, int $user_fk){
+        $sql = "INSERT INTO reports(Report_Image, Report_Comment, Report_Title, Report_Location, Report_Status, User_fk) values ('$img', '$comment', '$title', '$lat / $lng', 'eingeschrieben', $user_fk);";
         $this->conn->query($sql);
     }
 }

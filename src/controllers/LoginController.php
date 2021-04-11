@@ -3,6 +3,7 @@ require_once("../models/UserModel.php");
 
 $model = new UserModel();
 $loginValid = false;
+session_start();
 if (isset($_POST["email"]) && isset($_POST["pw"])) {
     $result = $model->getUsers();
 
@@ -10,8 +11,7 @@ if (isset($_POST["email"]) && isset($_POST["pw"])) {
         if ($_POST["email"] == $index["User_email"]) {
             if ($_POST["pw"] == $index["User_password"]) {
                 $loginValid = true;
-                session_start();
-                $_SESSION["email"] = $_GET["email"];
+                $_SESSION["email"] = $_POST["email"];
                 header("Location: ../views/index.html");
             }
         }
