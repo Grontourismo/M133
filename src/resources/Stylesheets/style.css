@@ -24,3 +24,15 @@
 #button:hover{
     text-decoration: none;
 }
+
+#map {
+    height: 35%;
+    width: 80%;
+  }
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
