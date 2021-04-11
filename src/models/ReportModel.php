@@ -10,12 +10,12 @@ class ReportModel
     }
 
     public function getAllReports(){
-        $sql = "SELECT * FROM report";
+        $sql = "SELECT * FROM reports";
         return $this->conn->query($sql);
     }
 
     public function getReportById(string $id){
-        $sql = "SELECT * FROM report WHERE report_id = " . $id;
+        $sql = "SELECT * FROM reports WHERE Report_id='" . $id . "'";
         return $this->conn->query($sql);
     }
 }

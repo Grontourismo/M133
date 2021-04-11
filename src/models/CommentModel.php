@@ -11,7 +11,7 @@ class CommentModel
     }
 
     public function getCommentByReportID(int $report_ID){
-        $sql = "SELECT * FROM report WHERE report_fk = " . $report_ID;
+        $sql = "SELECT * FROM comments WHERE Report_fk='" . $report_ID . "'";
         return $this->conn->query($sql);
     }
 }

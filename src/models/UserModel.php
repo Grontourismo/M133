@@ -10,13 +10,13 @@ class UserModel
         $this->conn = new mysqli("127.0.0.1", "root", "1234", "carry");
     }
 
-    public function getReportByLogin(string $email, string $password){
-        $sql = "SELECT * FROM report WHERE user_email = " . $email . " AND user_password = " . $password;
+    public function getUsers(){
+        $sql = "SELECT * FROM users";
         return $this->conn->query($sql);
     }
 
-    public function getReportByEmail(string $email){
-        $sql = "SELECT * FROM report WHERE user_email = " . $email;
+    public function getUserByEmail(string $email){
+        $sql = "SELECT * FROM users WHERE User_email='" . $email . "'";
         return $this->conn->query($sql);
     }
 }

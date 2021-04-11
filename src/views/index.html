@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
     <title>Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -20,7 +20,8 @@
             <li><a href="add.html">Add Report</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span>
+                Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -35,26 +36,45 @@
             <th>Status</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="Tbody">
         </tbody>
     </table>
-    <p id="test"></p>
+    <p id="text"></p>
 
     <script>
-        let result = "";
-        let request = new XMLHttpRequest();
-        request.open("GET", "reportApi.php");
-        request.send();
-        request.onload = () => {
-            if (request.status === 200){
-                result = JSON.parse(request.response);
-            }else{
-                result = request.statusText;
-            }
+        var request = new XMLHttpRequest()
+        request.open('GET', '../api/reportApi.php', true)
+        request.onload = function () {
+            var data = JSON.parse(this.response)
+
+            const table = document.getElementById("Tbody");
+            data.forEach(item => {
+                let row = table.insertRow();
+                row.addEventListener("click", function () {
+                    window.location = "showReport.html?id=" + item.Report_id;
+                });
+                row.classList.add("tdi")
+                let id = row.insertCell(0);
+                id.innerHTML = item.Report_id;
+                let title = row.insertCell(1);
+                title.innerHTML = item.Report_Title;
+
+                let location = row.insertCell(2);
+                location.innerHTML = item.Report_Location;
+
+                let time = row.insertCell(3);
+                time.innerHTML = item.Report_Time;
+
+                let status = row.insertCell(4);
+                status.innerHTML = item.Report_Status;
+            });
         }
 
-        if (result !== "Not Found"){
+        request.send()
 
+
+        function clicked(reportId) {
+            console.log(reportId)
         }
     </script>
 </div>
