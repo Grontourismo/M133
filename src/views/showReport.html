@@ -124,8 +124,11 @@
             requestUser.open('GET', '../api/userApi.php?id=' + item.User_fk, true)
             requestUser.onload = function () {
                 var dataUser = JSON.parse(requestUser.response)
-                dataUser.forEach(item => {
-                    document.getElementById("user").innerText = "Erstellt von: " + item.User_name + " " + item.User_lastname
+                dataUser.forEach(i => {
+                    if (i.User_email !== sessionStorage.getItem("email")){
+                        document.getElementById("status").style.display = "none";
+                    }
+                    document.getElementById("user").innerText = "Erstellt von: " + i.User_name + " " + i.User_lastname
                 });
             }
             requestUser.send()
