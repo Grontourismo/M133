@@ -10,6 +10,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script>
+        if (sessionStorage.getItem("email") === ""){
+            location.replace("../../index.html")
+        }
+        document.getElementById("btnLogout").addEventListener("click", () => {
+            sessionStorage.setItem("email", "");
+            location.replace("../controllers/logoutController.php");
+            location.replace("../../index.html")
+        })
         function initMap() {
             const myLatlng = { lat: 47.3667, lng: 8.55 };
             const map = new google.maps.Map(document.getElementById("map2"), {
@@ -46,7 +54,7 @@
             <li><a href="add.html">Add Report</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span>
+            <li><a id="btnLogout"><span class="glyphicon glyphicon-log-in"></span>
                 Logout</a></li>
         </ul>
     </div>
@@ -55,24 +63,24 @@
     <form action="../controllers/AddController.php" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Report Title</label>
-            <input name="title" type="text" class="form-control" aria-describedby="emailHelp"
+            <input required name="title" type="text" class="form-control" aria-describedby="emailHelp"
                    placeholder="Report Title">
         </div>
         <div class="form-group">
             <label>Report Comment</label>
-            <textarea name="comment" class="form-control" placeholder="Report Comment"></textarea>
+            <textarea required name="comment" class="form-control" placeholder="Report Comment"></textarea>
         </div>
         <div class="form-group">
             <label>Location lat/Breitengrad</label>
-            <input name="lat" type="text" class="form-control" placeholder="Location lat" id="lat-form">
+            <input required name="lat" type="text" class="form-control" placeholder="Location lat" id="lat-form">
         </div>
         <div class="form-group">
             <label>Location lng/Längengrad</label>
-            <input name="lng" type="text" class="form-control" placeholder="Location lng" id="lng-form">
+            <input required name="lng" type="text" class="form-control" placeholder="Location lng" id="lng-form">
         </div>
         <div class="form-group">
             <label>Report Image</label>
-            <input name="uploadfile" type="file" class="form-control" placeholder="Report Image">
+            <input required name="uploadfile" type="file" class="form-control" placeholder="Report Image">
         </div>
         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
     </form>

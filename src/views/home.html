@@ -6,6 +6,13 @@
     <link rel="stylesheet" type="text/css" href="../resources/Stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Home</title>
+    <!--
+    <script>
+        if (window.sessionStorage.getItem("email") === ""){
+            window.location.replace('../../index.html');
+        }
+    </script>
+    -->
 </head>
 <body>
 <nav class="navbar-inverse">
@@ -18,7 +25,7 @@
             <li><a href="add.html">Add Report</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../controllers/logoutController.php"><span class="glyphicon glyphicon-log-in"></span>
+            <li><a id="btnLogout"><span class="glyphicon glyphicon-log-in"></span>
                 Logout</a></li>
         </ul>
     </div>
@@ -40,6 +47,16 @@
     <p id="text"></p>
 
     <script>
+        if (sessionStorage.getItem("email") === ""){
+            location.replace("../../index.html")
+        }
+
+        document.getElementById("btnLogout").addEventListener("click", () => {
+            sessionStorage.setItem("email", "");
+            location.replace("../controllers/logoutController.php");
+            location.replace("../../index.html")
+        })
+
         var request = new XMLHttpRequest()
         request.open('GET', '../api/reportApi.php', true)
         request.onload = function () {

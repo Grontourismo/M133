@@ -24,7 +24,7 @@
     </div>
 </nav>
 <div class="margin">
-    <form action="src/controllers/LoginController.php" method="post">
+    <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Email</label>
             <input required name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -34,8 +34,38 @@
             <label for="exampleInputPassword1">Password</label>
             <input required name="pw" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button id="login" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<script>
+    if (sessionStorage.getItem("email") != null && sessionStorage.getItem("pw")!= null) {
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200 && request.responseText !== "Failed") {
+                location.replace("src/views/home.html")
+            }
+        }
+        request.open("GET", "./src/controllers/LoginController.php?email=" + sessionStorage.getItem("email") + "&pw=" + sessionStorage.getItem("pw"))
+        request.send();
+    }
+
+    document.getElementById("login").addEventListener("click", () => {
+        const email = document.getElementById("exampleInputEmail1").value;
+        const password = document.getElementById("exampleInputPassword1").value;
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function (){
+            if (this.readyState === 4 && this.status === 200) {
+                if (request.responseText !== "Failed"){
+                    sessionStorage.setItem("email", email);
+                    location.replace("src/views/home.html");
+                }else {
+                    alert("Please enter valid credentials")
+                }
+            }
+        }
+        request.open("GET", "./src/controllers/LoginController.php?email=" + email + "&pw=" + password)
+        request.send();
+    });
+</script>
 </body>
 </html>

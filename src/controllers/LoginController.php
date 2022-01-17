@@ -4,21 +4,19 @@ require_once("../models/UserModel.php");
 $model = new UserModel();
 $loginValid = false;
 session_start();
-if (isset($_POST["email"]) && isset($_POST["pw"])) {
-    strip_tags($_POST["email"]);
-    strip_tags($_POST["pw"]);
+if (isset($_GET["email"]) && isset($_GET["pw"])) {
     $result = $model->getUsers();
 
     foreach ($result as $index) {
-        if ($_POST["email"] == $index["User_email"]) {
-            if ($_POST["pw"] == $index["User_password"]) {
+        if ($_GET["email"] == $index["User_email"]) {
+            if ($_GET["pw"] == $index["User_password"]) {
                 $loginValid = true;
-                $_SESSION["email"] = $_POST["email"];
-                header("Location: ../views/home.html");
+                $_SESSION["email"] = $_GET["email"];
+                return $index;
             }
         }
     }
 }
 if (!$loginValid) {
-    header("Location: ../views/index.html");
+    return "Failed";
 }
