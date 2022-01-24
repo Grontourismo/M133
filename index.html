@@ -55,10 +55,12 @@
         const request = new XMLHttpRequest();
         request.onreadystatechange = function (){
             if (this.readyState === 4 && this.status === 200) {
-                if (request.responseText !== "Failed"){
+                if(request.responseText.includes("Error")){
+                    alert("Error 500 Internal Server Error")
+                } else if (request.responseText !== "Failed"){
                     sessionStorage.setItem("email", email);
                     location.replace("src/views/home.html");
-                }else {
+                } else {
                     alert("Please enter valid credentials")
                 }
             }

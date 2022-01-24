@@ -3,20 +3,19 @@ require_once("../models/UserModel.php");
 $model = new UserModel();
 if (isset($_GET["user_email"])) {
     $array = [];
-    foreach ($model->getUserByEmail($_GET["user_email"]) as $index){
+    foreach ($model->getUserByEmail($_GET["user_email"]) as $index) {
         array_push($array, $index);
     }
     print json_encode($array);
-}
-else if (isset($_GET["id"])) {
+} else if (isset($_GET["id"])) {
     $array = [];
-    foreach ($model->getUserById($_GET["id"]) as $index){
+    foreach ($model->getUserById($_GET["id"]) as $index) {
         array_push($array, $index);
     }
     print json_encode($array);
-}else{
+} else {
     $array = [];
-    foreach ($model->getUsers() as $index){
+    foreach ($model->getUsers() as $index) {
         array_push($array, $index);
     }
     print json_encode($array);
