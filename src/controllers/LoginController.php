@@ -12,6 +12,7 @@ if (isset($_GET["email"]) && isset($_GET["pw"])) {
             if ($_GET["pw"] == $index["User_password"]) {
                 $loginValid = true;
                 $_SESSION["email"] = $_GET["email"];
+                $_SESSION["pw"] = $_GET["pw"];
                 return $index;
             }
         }

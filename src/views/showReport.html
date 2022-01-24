@@ -57,6 +57,7 @@
             <div class="form-group">
                 <input required id="id" name="report_id" class="form-control" type="hidden">
             </div>
+            <input id="hiddenEmail" type="hidden" name="user_email">
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -68,6 +69,7 @@
     </div>
 </div>
 <script>
+    document.getElementById("hiddenEmail").value = sessionStorage.getItem("email");
     if (sessionStorage.getItem("email") === ""){
         location.replace("../../index.html")
     }
