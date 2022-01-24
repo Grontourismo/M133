@@ -5,19 +5,23 @@ $model = new UserModel();
 $loginValid = false;
 session_start();
 if (isset($_GET["email"]) && isset($_GET["pw"])) {
-    $result = $model->getUsers();
+    sleep(3);
+    $result = $model->getUsersForLogin();
 
     foreach ($result as $index) {
         if ($_GET["email"] == $index["User_email"]) {
-            if ($_GET["pw"] == $index["User_password"]) {
+            if (password_verify($_GET["pw"], $index["User_password"])) {
                 $loginValid = true;
                 $_SESSION["email"] = $_GET["email"];
                 $_SESSION["pw"] = $_GET["pw"];
-                return $index;
+                print $index;
             }
         }
     }
 }
 if (!$loginValid) {
-    return "Failed";
+    $data = file_get_contents("../Logs/Logfile.txt");
+    $data = $data . "\nInvalid login: email = " . $_GET['email'];
+    file_put_contents("../Logs/Logfile.txt", $data);
+    print "Failed";
 }

@@ -11,17 +11,22 @@ class UserModel
     }
 
     public function getUsers(){
+        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users";
+        return $this->conn->query($sql);
+    }
+
+    public function getUsersForLogin(){
         $sql = "SELECT * FROM users";
         return $this->conn->query($sql);
     }
 
     public function getUserByEmail(string $email){
-        $sql = "SELECT * FROM users WHERE User_email='" . $email . "'";
+        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users WHERE User_email='" . $email . "'";
         return $this->conn->query($sql);
     }
 
     public function getUserById($id){
-        $sql = "SELECT * FROM users WHERE User_id='" . $id . "'";
+        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users WHERE User_id='" . $id . "'";
         return $this->conn->query($sql);
     }
 }

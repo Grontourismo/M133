@@ -1,0 +1,87 @@
+Index: src/controllers/LoginController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nrequire_once(\"../models/UserModel.php\");\r\n\r\n$model = new UserModel();\r\n$loginValid = false;\r\nsession_start();\r\nif (isset($_GET[\"email\"]) && isset($_GET[\"pw\"])) {\r\n    $result = $model->getUsers();\r\n\r\n    foreach ($result as $index) {\r\n        if ($_GET[\"email\"] == $index[\"User_email\"]) {\r\n            if ($_GET[\"pw\"] == $index[\"User_password\"]) {\r\n                $loginValid = true;\r\n                $_SESSION[\"email\"] = $_GET[\"email\"];\r\n                $_SESSION[\"pw\"] = $_GET[\"pw\"];\r\n                return $index;\r\n            }\r\n        }\r\n    }\r\n}\r\nif (!$loginValid) {\r\n    return \"Failed\";\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/controllers/LoginController.php b/src/controllers/LoginController.php
+--- a/src/controllers/LoginController.php	(revision 57d8a479775f3a541d8c5f0419a9bd1a97859cff)
++++ b/src/controllers/LoginController.php	(date 1643016073854)
+@@ -5,19 +5,23 @@
+ $loginValid = false;
+ session_start();
+ if (isset($_GET["email"]) && isset($_GET["pw"])) {
+-    $result = $model->getUsers();
++    sleep(3);
++    $result = $model->getUsersForLogin();
+ 
+     foreach ($result as $index) {
+         if ($_GET["email"] == $index["User_email"]) {
+-            if ($_GET["pw"] == $index["User_password"]) {
++            if (password_verify($_GET["pw"], $index["User_password"])) {
+                 $loginValid = true;
+                 $_SESSION["email"] = $_GET["email"];
+                 $_SESSION["pw"] = $_GET["pw"];
+-                return $index;
++                print $index;
+             }
+         }
+     }
+ }
+ if (!$loginValid) {
+-    return "Failed";
++    $data = file_get_contents("../Logs/Logfile.txt");
++    $data = $data . "\nInvalid login: email = " . $_GET['email'];
++    file_put_contents("../Logs/Logfile.txt", $data);
++    print "Failed";
+ }
+Index: src/models/UserModel.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\n\r\nclass UserModel\r\n{\r\n    private $conn;\r\n\r\n    public function __construct()\r\n    {\r\n        $this->conn = new mysqli(\"127.0.0.1\", \"root\", \"1234\", \"carry\");\r\n    }\r\n\r\n    public function getUsers(){\r\n        $sql = \"SELECT * FROM users\";\r\n        return $this->conn->query($sql);\r\n    }\r\n\r\n    public function getUserByEmail(string $email){\r\n        $sql = \"SELECT * FROM users WHERE User_email='\" . $email . \"'\";\r\n        return $this->conn->query($sql);\r\n    }\r\n\r\n    public function getUserById($id){\r\n        $sql = \"SELECT * FROM users WHERE User_id='\" . $id . \"'\";\r\n        return $this->conn->query($sql);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/models/UserModel.php b/src/models/UserModel.php
+--- a/src/models/UserModel.php	(revision 57d8a479775f3a541d8c5f0419a9bd1a97859cff)
++++ b/src/models/UserModel.php	(date 1643014142054)
+@@ -11,17 +11,22 @@
+     }
+ 
+     public function getUsers(){
++        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users";
++        return $this->conn->query($sql);
++    }
++
++    public function getUsersForLogin(){
+         $sql = "SELECT * FROM users";
+         return $this->conn->query($sql);
+     }
+ 
+     public function getUserByEmail(string $email){
+-        $sql = "SELECT * FROM users WHERE User_email='" . $email . "'";
++        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users WHERE User_email='" . $email . "'";
+         return $this->conn->query($sql);
+     }
+ 
+     public function getUserById($id){
+-        $sql = "SELECT * FROM users WHERE User_id='" . $id . "'";
++        $sql = "SELECT User_name, User_lastname, User_email, User_id FROM users WHERE User_id='" . $id . "'";
+         return $this->conn->query($sql);
+     }
+ }
+\ No newline at end of file
+Index: src/Logs/Logfile.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Logs/Logfile.txt b/src/Logs/Logfile.txt
+new file mode 100644
+--- /dev/null	(date 1643015931034)
++++ b/src/Logs/Logfile.txt	(date 1643015931034)
+@@ -0,0 +1,2 @@
++Invalid login: email = adfsadsfsdf
++Invalid login: email = testtest
+\ No newline at end of file
