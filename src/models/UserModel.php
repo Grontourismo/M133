@@ -7,7 +7,7 @@ class UserModel
 
     public function __construct()
     {
-        $this->conn = new mysqli("127.0.0.1", "root", "1234", "carry");
+        $this->conn = new mysqli("127.0.0.1", "root", "", "carry");
     }
 
     public function getUsers(){
