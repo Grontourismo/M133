@@ -8,11 +8,11 @@ session_start();
 if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['comment']) && isset($_POST['lat']) && isset($_POST['lng'])) {
 
 
-    strip_tags($_POST['title']);
-    strip_tags($_POST['comment']);
-    strip_tags($_POST['lat']);
-    strip_tags($_POST['lng']);
-    strip_tags($_POST['uploadfile']);
+    $title = strip_tags($_POST['title']);
+    $comment = strip_tags($_POST['comment']);
+    $lat = strip_tags($_POST['lat']);
+    $lng = strip_tags($_POST['lng']);
+    $uploadFile = strip_tags($_POST['uploadfile']);
 
 
     $filename = $_FILES["uploadfile"]["name"];
@@ -26,7 +26,7 @@ if (isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['comment']
         $user_fk = $user["User_id"];
     }
 
-    $model->addReportToDB($_POST["title"], $_POST["comment"], $_POST["lat"], $_POST["lng"], $filename, $user_fk);
+    $model->addReportToDB($title, $comment, $lat, $lng, $filename, $user_fk);
 
     move_uploaded_file($tempname, $folder);
 
